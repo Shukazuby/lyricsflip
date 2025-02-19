@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ChatRoomService } from './chat-room.service';
 import { CreateChatRoomDto } from './dto/create-chat-room.dto';
 import { UpdateChatRoomDto } from './dto/update-chat-room.dto';
@@ -7,9 +7,9 @@ import { UpdateChatRoomDto } from './dto/update-chat-room.dto';
 export class ChatRoomController {
   constructor(private readonly chatRoomService: ChatRoomService) {}
 
-  @Post()
-  create(@Body() createChatRoomDto: CreateChatRoomDto) {
-    return this.chatRoomService.create(createChatRoomDto);
+  @Post('create')
+  createRoom(@Body() player: CreateChatRoomDto) {
+    return this.chatRoomService.createRoom(player);
   }
 
   @Get()
@@ -32,18 +32,13 @@ export class ChatRoomController {
     return this.chatRoomService.remove(+id);
   }
 
-  @Post('create')
-  createRoom(@Body() player: CreateChatRoomDto) {
-    return this.chatRoomService.createRoom(player);
+  @Post(':playerId/join')
+  joinRoom(@Query('code') code: string, @Param('playerId') playerId: string) {
+    return this.chatRoomService.joinRoom(code, playerId);
   }
 
-  @Post(':roomId/:playerId/join')
-  joinRoom(@Param('roomId') roomId: string, @Param('playerId') playerId: string) {
-    return this.chatRoomService.joinRoom(roomId, playerId);
-  }
-
-  @Post(':roomId/leave/:playerId')
-  leaveRoom(@Param('roomId') roomId: string, @Param('playerId') playerId: string) {
-    return this.chatRoomService.leaveRoom(roomId, playerId);
+  @Post(':playerId/leave')
+  leaveRoom(@Query('code') code: string, @Param('playerId') playerId: string) {
+    return this.chatRoomService.leaveRoom(code, playerId); 
   }
 }

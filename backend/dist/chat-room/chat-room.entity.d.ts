@@ -3,6 +3,7 @@ export declare class ChatRoom {
     id: string;
     name: string;
     capacity: number;
+    code: string;
     createdAt: Date;
     updatedAt: Date;
     players: Player[];

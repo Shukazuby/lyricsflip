@@ -13,11 +13,11 @@ export declare class ChatRoomService {
     update(id: number, updateChatRoomDto: UpdateChatRoomDto): string;
     remove(id: number): string;
     createRoom(roomData: CreateChatRoomDto): Promise<ChatRoom>;
-    joinRoom(roomId: string, playerId: string): Promise<{
+    joinRoom(code: string, playerId: string): Promise<{
         message: string;
         statusCode: number;
     }>;
-    leaveRoom(roomId: string, playerId: string): Promise<{
+    leaveRoom(code: string, playerId: string): Promise<{
         message: string;
         statusCode: number;
     }>;

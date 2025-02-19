@@ -28,6 +28,10 @@ __decorate([
     __metadata("design:type", Number)
 ], ChatRoom.prototype, "capacity", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ChatRoom.prototype, "code", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)({ default: new Date() }),
     __metadata("design:type", Date)
 ], ChatRoom.prototype, "createdAt", void 0);

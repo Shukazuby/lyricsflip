@@ -38,12 +38,12 @@ constructor(
     return await this.roomModel.save(room);        
   }
 
-  async joinRoom(roomId: string, playerId: string) {
+  async joinRoom(code: string, playerId: string) {
     const player = await this.playerModel.findOne({ where: { id: playerId } });
     if (!player) {
       throw new NotFoundException('Player not found');
     }
-    const room = await this.roomModel.findOne({ where: { id: roomId } });
+    const room = await this.roomModel.findOne({ where: {code} });
     if (!room) {
       throw new NotFoundException('Room not found');
     }
@@ -64,8 +64,8 @@ constructor(
     }      
   }
   
-  async leaveRoom(roomId: string, playerId: string) {
-    const room = await this.roomModel.findOne({ where: { id: roomId} });
+  async leaveRoom(code: string, playerId: string) {
+    const room = await this.roomModel.findOne({ where: { code} });
     if (!room) {
       throw new NotFoundException('Room not found');
     }

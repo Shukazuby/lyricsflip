@@ -12,6 +12,9 @@ export class ChatRoom {
   @Column()
   capacity: number;
 
+  @Column()
+  code: string;
+
   @CreateDateColumn({default: new Date()})
   createdAt: Date;
 

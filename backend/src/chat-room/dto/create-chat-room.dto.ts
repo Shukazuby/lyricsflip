@@ -6,5 +6,8 @@ name: string;
     
 @ApiProperty()
 capacity: number;
+    
+@ApiProperty()
+code: string;
 }
      

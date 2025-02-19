@@ -42,12 +42,12 @@ let ChatRoomService = class ChatRoomService {
         const room = this.roomModel.create(roomData);
         return await this.roomModel.save(room);
     }
-    async joinRoom(roomId, playerId) {
+    async joinRoom(code, playerId) {
         const player = await this.playerModel.findOne({ where: { id: playerId } });
         if (!player) {
             throw new common_1.NotFoundException('Player not found');
         }
-        const room = await this.roomModel.findOne({ where: { id: roomId } });
+        const room = await this.roomModel.findOne({ where: { code } });
         if (!room) {
             throw new common_1.NotFoundException('Room not found');
         }
@@ -66,8 +66,8 @@ let ChatRoomService = class ChatRoomService {
             "statusCode": 200
         };
     }
-    async leaveRoom(roomId, playerId) {
-        const room = await this.roomModel.findOne({ where: { id: roomId } });
+    async leaveRoom(code, playerId) {
+        const room = await this.roomModel.findOne({ where: { code } });
         if (!room) {
             throw new common_1.NotFoundException('Room not found');
         }

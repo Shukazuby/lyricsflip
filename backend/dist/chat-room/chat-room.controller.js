@@ -21,8 +21,8 @@ let ChatRoomController = class ChatRoomController {
     constructor(chatRoomService) {
         this.chatRoomService = chatRoomService;
     }
-    create(createChatRoomDto) {
-        return this.chatRoomService.create(createChatRoomDto);
+    createRoom(player) {
+        return this.chatRoomService.createRoom(player);
     }
     findAll() {
         return this.chatRoomService.findAll();
@@ -36,24 +36,21 @@ let ChatRoomController = class ChatRoomController {
     remove(id) {
         return this.chatRoomService.remove(+id);
     }
-    createRoom(player) {
-        return this.chatRoomService.createRoom(player);
+    joinRoom(code, playerId) {
+        return this.chatRoomService.joinRoom(code, playerId);
     }
-    joinRoom(roomId, playerId) {
-        return this.chatRoomService.joinRoom(roomId, playerId);
-    }
-    leaveRoom(roomId, playerId) {
-        return this.chatRoomService.leaveRoom(roomId, playerId);
+    leaveRoom(code, playerId) {
+        return this.chatRoomService.leaveRoom(code, playerId);
     }
 };
 exports.ChatRoomController = ChatRoomController;
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_chat_room_dto_1.CreateChatRoomDto]),
     __metadata("design:returntype", void 0)
-], ChatRoomController.prototype, "create", null);
+], ChatRoomController.prototype, "createRoom", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
@@ -83,23 +80,16 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ChatRoomController.prototype, "remove", null);
 __decorate([
-    (0, common_1.Post)('create'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_chat_room_dto_1.CreateChatRoomDto]),
-    __metadata("design:returntype", void 0)
-], ChatRoomController.prototype, "createRoom", null);
-__decorate([
-    (0, common_1.Post)(':roomId/:playerId/join'),
-    __param(0, (0, common_1.Param)('roomId')),
+    (0, common_1.Post)(':playerId/join'),
+    __param(0, (0, common_1.Query)('code')),
     __param(1, (0, common_1.Param)('playerId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], ChatRoomController.prototype, "joinRoom", null);
 __decorate([
-    (0, common_1.Post)(':roomId/leave/:playerId'),
-    __param(0, (0, common_1.Param)('roomId')),
+    (0, common_1.Post)(':playerId/leave'),
+    __param(0, (0, common_1.Query)('code')),
     __param(1, (0, common_1.Param)('playerId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
