@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateChatRoomDto } from './dto/create-chat-room.dto';
 import { UpdateChatRoomDto } from './dto/update-chat-room.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -38,4 +38,30 @@ constructor(
     return await this.roomModel.save(room);        
   }
 
+  async joinRoom(roomId: string, playerId: string) {
+    const player = await this.playerModel.findOne({ where: { id: playerId } });
+    if (!player) {
+      throw new NotFoundException('Player not found');
+    }
+    const room = await this.roomModel.findOne({ where: { id: roomId } });
+    if (!room) {
+      throw new NotFoundException('Room not found');
+    }
+    if (room.playerIds?.includes(playerId)) {
+      throw new BadRequestException('Player already exists in this room');
+    }
+     if (room.playerIds?.length >= room.capacity) {
+      throw new BadRequestException('Room is full');
+    }
+
+    room.playerIds.push(player.id);
+    player.chatRoomIds.push(room.id);
+    await this.roomModel.save(room);  
+    await this.playerModel.save(player);  
+     return {
+      "message": "Player joined the room",
+      "statusCode": 200
+    }      
+  }
+  
 }

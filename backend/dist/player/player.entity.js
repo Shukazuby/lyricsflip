@@ -33,17 +33,21 @@ __decorate([
     __metadata("design:type", String)
 ], Player.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)(),
+    (0, typeorm_1.CreateDateColumn)({ default: new Date() }),
     __metadata("design:type", Date)
 ], Player.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)(),
+    (0, typeorm_1.UpdateDateColumn)({ default: new Date() }),
     __metadata("design:type", Date)
 ], Player.prototype, "updatedAt", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => chat_room_entity_1.ChatRoom, chatRoom => chatRoom.players),
     __metadata("design:type", chat_room_entity_1.ChatRoom)
 ], Player.prototype, "chatRoom", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'text', array: true, default: [] }),
+    __metadata("design:type", Array)
+], Player.prototype, "chatRoomIds", void 0);
 __decorate([
     (0, typeorm_1.ManyToMany)(() => game_session_entity_1.GameSession, gameSession => gameSession.players),
     (0, typeorm_1.JoinTable)(),

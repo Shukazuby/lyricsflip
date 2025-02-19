@@ -42,6 +42,30 @@ let ChatRoomService = class ChatRoomService {
         const room = this.roomModel.create(roomData);
         return await this.roomModel.save(room);
     }
+    async joinRoom(roomId, playerId) {
+        const player = await this.playerModel.findOne({ where: { id: playerId } });
+        if (!player) {
+            throw new common_1.NotFoundException('Player not found');
+        }
+        const room = await this.roomModel.findOne({ where: { id: roomId } });
+        if (!room) {
+            throw new common_1.NotFoundException('Room not found');
+        }
+        if (room.playerIds?.includes(playerId)) {
+            throw new common_1.BadRequestException('Player already exists in this room');
+        }
+        if (room.playerIds?.length >= room.capacity) {
+            throw new common_1.BadRequestException('Room is full');
+        }
+        room.playerIds.push(player.id);
+        player.chatRoomIds.push(room.id);
+        await this.roomModel.save(room);
+        await this.playerModel.save(player);
+        return {
+            "message": "Player joined the room",
+            "statusCode": 200
+        };
+    }
 };
 exports.ChatRoomService = ChatRoomService;
 exports.ChatRoomService = ChatRoomService = __decorate([

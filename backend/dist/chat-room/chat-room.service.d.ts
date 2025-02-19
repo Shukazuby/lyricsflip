@@ -13,4 +13,8 @@ export declare class ChatRoomService {
     update(id: number, updateChatRoomDto: UpdateChatRoomDto): string;
     remove(id: number): string;
     createRoom(roomData: CreateChatRoomDto): Promise<ChatRoom>;
+    joinRoom(roomId: string, playerId: string): Promise<{
+        message: string;
+        statusCode: number;
+    }>;
 }

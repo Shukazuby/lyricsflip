@@ -26,14 +26,17 @@ export class Player {
   @Column({ unique: true })
   email: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({default: new Date()})
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({default: new Date()})
   updatedAt: Date;
 
   @ManyToOne(() => ChatRoom, chatRoom => chatRoom.players)
   chatRoom: ChatRoom;
+
+  @Column({ type: 'text', array: true, default: [] })
+  chatRoomIds: string[]; 
 
   @ManyToMany(() => GameSession, gameSession => gameSession.players)
   @JoinTable()

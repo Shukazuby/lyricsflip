@@ -8,5 +8,6 @@ export declare class Player {
     createdAt: Date;
     updatedAt: Date;
     chatRoom: ChatRoom;
+    chatRoomIds: string[];
     gameSessions: GameSession[];
 }
