@@ -31,4 +31,10 @@ export class ChatRoomController {
   remove(@Param('id') id: string) {
     return this.chatRoomService.remove(+id);
   }
+
+  @Post('create')
+  createRoom(@Body() player: CreateChatRoomDto) {
+    return this.chatRoomService.createRoom(player);
+  }
+
 }

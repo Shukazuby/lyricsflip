@@ -36,6 +36,9 @@ let ChatRoomController = class ChatRoomController {
     remove(id) {
         return this.chatRoomService.remove(+id);
     }
+    createRoom(player) {
+        return this.chatRoomService.createRoom(player);
+    }
 };
 exports.ChatRoomController = ChatRoomController;
 __decorate([
@@ -73,6 +76,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ChatRoomController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Post)('create'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_chat_room_dto_1.CreateChatRoomDto]),
+    __metadata("design:returntype", void 0)
+], ChatRoomController.prototype, "createRoom", null);
 exports.ChatRoomController = ChatRoomController = __decorate([
     (0, common_1.Controller)('chat-room'),
     __metadata("design:paramtypes", [chat_room_service_1.ChatRoomService])

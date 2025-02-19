@@ -9,4 +9,5 @@ export declare class ChatRoomController {
     findOne(id: string): string;
     update(id: string, updateChatRoomDto: UpdateChatRoomDto): string;
     remove(id: string): string;
+    createRoom(player: CreateChatRoomDto): Promise<import("./chat-room.entity").ChatRoom>;
 }
