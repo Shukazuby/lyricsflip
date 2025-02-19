@@ -21,10 +21,14 @@ const notification_module_1 = require("./notification/notification.module");
 const admin_module_1 = require("./admin/admin.module");
 const player_module_1 = require("./player/player.module");
 const typeorm_1 = require("@nestjs/typeorm");
-const access_token_guard_1 = require("./auth/guard/access-token/access-token.guard");
-const core_1 = require("@nestjs/core");
 const config_module_1 = require("./config/config.module");
-const global_interceptor_1 = require("./interceptors/global.interceptor");
+const chat_room_module_1 = require("./chat-room/chat-room.module");
+const dotenv = require("dotenv");
+const jwt_1 = require("@nestjs/jwt");
+const player_entity_1 = require("./player/player.entity");
+const game_session_entity_1 = require("./game-session/game-session.entity");
+const chat_room_entity_1 = require("./chat-room/chat-room.entity");
+dotenv.config();
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -45,21 +49,16 @@ exports.AppModule = AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
                 url: process.env.DATABASE_URL,
+                entities: [player_entity_1.Player, game_session_entity_1.GameSession, chat_room_entity_1.ChatRoom],
                 autoLoadEntities: true,
                 synchronize: process.env.NODE_ENV === 'development',
             }),
+            chat_room_module_1.ChatRoomModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [
             app_service_1.AppService,
-            {
-                provide: core_1.APP_GUARD,
-                useClass: access_token_guard_1.AccessTokenGuard,
-            },
-            {
-                provide: core_1.APP_INTERCEPTOR,
-                useClass: global_interceptor_1.GlobalInterceptor,
-            },
+            jwt_1.JwtService,
         ],
     })
 ], AppModule);

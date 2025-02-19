@@ -18,6 +18,13 @@ import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule } from './config/config.module';
 import { GlobalInterceptor } from './interceptors/global.interceptor';
 import { ChatRoomModule } from './chat-room/chat-room.module';
+import * as dotenv from 'dotenv';
+import { JwtService } from '@nestjs/jwt';
+import configuration from './config/configuration';
+import { Player } from './player/player.entity';
+import { GameSession } from './game-session/game-session.entity';
+import { ChatRoom } from './chat-room/chat-room.entity';
+dotenv.config();
 
 @Module({
   imports: [
@@ -35,6 +42,7 @@ import { ChatRoomModule } from './chat-room/chat-room.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
+      entities: [Player, GameSession, ChatRoom],
       autoLoadEntities: true,
       synchronize: process.env.NODE_ENV === 'development',
     }),
@@ -43,14 +51,15 @@ import { ChatRoomModule } from './chat-room/chat-room.module';
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_GUARD,
-      useClass: AccessTokenGuard,
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: GlobalInterceptor,
-    },
+    JwtService,
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: AccessTokenGuard,
+    // },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: GlobalInterceptor,
+    // },
   ],
 })
 export class AppModule {}
