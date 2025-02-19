@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlayerDTO = void 0;
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
+const swagger_1 = require("@nestjs/swagger");
 class PlayerDTO {
 }
 exports.PlayerDTO = PlayerDTO;
@@ -22,18 +23,21 @@ __decorate([
     __metadata("design:type", String)
 ], PlayerDTO.prototype, "id", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)({ message: 'Firstname is required' }),
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], PlayerDTO.prototype, "firstname", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)({ message: 'Lastname is required' }),
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], PlayerDTO.prototype, "lastname", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsEmail)({}, { message: 'Invalid email address' }),
     (0, class_validator_1.IsNotEmpty)({ message: 'Email is required' }),
     (0, class_transformer_1.Expose)(),
