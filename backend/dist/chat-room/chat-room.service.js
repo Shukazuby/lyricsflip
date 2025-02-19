@@ -66,6 +66,27 @@ let ChatRoomService = class ChatRoomService {
             "statusCode": 200
         };
     }
+    async leaveRoom(roomId, playerId) {
+        const room = await this.roomModel.findOne({ where: { id: roomId } });
+        if (!room) {
+            throw new common_1.NotFoundException('Room not found');
+        }
+        const player = await this.playerModel.findOne({ where: { id: playerId } });
+        if (!player) {
+            throw new common_1.NotFoundException('Player not found');
+        }
+        if (!room.playerIds?.includes(playerId)) {
+            throw new common_1.BadRequestException('Player is not in this room');
+        }
+        room.playerIds = room.playerIds.filter(id => id !== player.id);
+        player.chatRoomIds = player.chatRoomIds.filter(id => id !== room.id);
+        await this.roomModel.save(room);
+        await this.playerModel.save(player);
+        return {
+            "message": 'Player left the room',
+            "statusCode": 200
+        };
+    }
 };
 exports.ChatRoomService = ChatRoomService;
 exports.ChatRoomService = ChatRoomService = __decorate([

@@ -64,4 +64,27 @@ constructor(
     }      
   }
   
+  async leaveRoom(roomId: string, playerId: string) {
+    const room = await this.roomModel.findOne({ where: { id: roomId} });
+    if (!room) {
+      throw new NotFoundException('Room not found');
+    }
+    const player = await this.playerModel.findOne({ where: { id: playerId} });
+    if (!player) {
+      throw new NotFoundException('Player not found');
+    }
+  
+    if (!room.playerIds?.includes(playerId)) {
+      throw new BadRequestException('Player is not in this room');
+    }
+    room.playerIds = room.playerIds.filter(id => id !== player.id);
+    player.chatRoomIds = player.chatRoomIds.filter(id => id !== room.id);
+     await this.roomModel.save(room);
+     await this.playerModel.save(player);
+    
+    return { 
+      "message": 'Player left the room', 
+      "statusCode": 200 
+    };
+  }
 }

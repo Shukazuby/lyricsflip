@@ -17,4 +17,8 @@ export declare class ChatRoomService {
         message: string;
         statusCode: number;
     }>;
+    leaveRoom(roomId: string, playerId: string): Promise<{
+        message: string;
+        statusCode: number;
+    }>;
 }
