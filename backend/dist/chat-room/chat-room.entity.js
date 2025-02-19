@@ -24,17 +24,25 @@ __decorate([
     __metadata("design:type", String)
 ], ChatRoom.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], ChatRoom.prototype, "capacity", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)({ default: new Date() }),
     __metadata("design:type", Date)
 ], ChatRoom.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)(),
+    (0, typeorm_1.UpdateDateColumn)({ default: new Date() }),
     __metadata("design:type", Date)
 ], ChatRoom.prototype, "updatedAt", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => player_entity_1.Player, player => player.chatRoom),
     __metadata("design:type", Array)
 ], ChatRoom.prototype, "players", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'text', array: true, default: [] }),
+    __metadata("design:type", Array)
+], ChatRoom.prototype, "playerIds", void 0);
 exports.ChatRoom = ChatRoom = __decorate([
     (0, typeorm_1.Entity)('chat_rooms')
 ], ChatRoom);

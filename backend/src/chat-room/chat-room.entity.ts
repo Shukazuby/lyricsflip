@@ -9,13 +9,19 @@ export class ChatRoom {
   @Column()
   name: string;
 
-  @CreateDateColumn()
+  @Column()
+  capacity: number;
+
+  @CreateDateColumn({default: new Date()})
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({default: new Date()})
   updatedAt: Date;
 
   @OneToMany(() => Player, player => player.chatRoom)
   players: Player[];
+
+  @Column({ type: 'text', array: true, default: [] })
+  playerIds: string[]; 
 
 }
