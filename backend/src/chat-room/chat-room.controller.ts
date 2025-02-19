@@ -37,4 +37,8 @@ export class ChatRoomController {
     return this.chatRoomService.createRoom(player);
   }
 
+  @Post(':roomId/:playerId/join')
+  joinRoom(@Param('roomId') roomId: string, @Param('playerId') playerId: string) {
+    return this.chatRoomService.joinRoom(roomId, playerId);
+  }
 }
