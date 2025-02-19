@@ -42,6 +42,9 @@ let ChatRoomController = class ChatRoomController {
     joinRoom(roomId, playerId) {
         return this.chatRoomService.joinRoom(roomId, playerId);
     }
+    leaveRoom(roomId, playerId) {
+        return this.chatRoomService.leaveRoom(roomId, playerId);
+    }
 };
 exports.ChatRoomController = ChatRoomController;
 __decorate([
@@ -94,6 +97,14 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], ChatRoomController.prototype, "joinRoom", null);
+__decorate([
+    (0, common_1.Post)(':roomId/leave/:playerId'),
+    __param(0, (0, common_1.Param)('roomId')),
+    __param(1, (0, common_1.Param)('playerId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], ChatRoomController.prototype, "leaveRoom", null);
 exports.ChatRoomController = ChatRoomController = __decorate([
     (0, common_1.Controller)('chat-room'),
     __metadata("design:paramtypes", [chat_room_service_1.ChatRoomService])

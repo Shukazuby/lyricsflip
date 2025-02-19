@@ -14,4 +14,8 @@ export declare class ChatRoomController {
         message: string;
         statusCode: number;
     }>;
+    leaveRoom(roomId: string, playerId: string): Promise<{
+        message: string;
+        statusCode: number;
+    }>;
 }

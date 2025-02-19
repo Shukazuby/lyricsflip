@@ -41,4 +41,9 @@ export class ChatRoomController {
   joinRoom(@Param('roomId') roomId: string, @Param('playerId') playerId: string) {
     return this.chatRoomService.joinRoom(roomId, playerId);
   }
+
+  @Post(':roomId/leave/:playerId')
+  leaveRoom(@Param('roomId') roomId: string, @Param('playerId') playerId: string) {
+    return this.chatRoomService.leaveRoom(roomId, playerId);
+  }
 }
